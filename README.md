@@ -3,6 +3,8 @@
 Find and Connect with Alpha Humans
 
 ## Using 
+Node.js and npm should be already Installed on your system.
+
 1. Clone this repository:
 ```bash
 git clone https://github.com/muntaxir4/alpha-radar.git
@@ -24,7 +26,7 @@ cd backend
 npm install
 ```
 
-4. Install Node modules for Backend :
+4. Install Node modules for Frontend :
 ```bash
 cd frontend
 npm install
