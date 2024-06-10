@@ -34,15 +34,32 @@ route.get("/:username",async (req,res)=>{
 route.get("/:username/followers",async (req,res)=>{
     const {username}=req.params;
     const userId=await UserProfile.findOne({username},{userId:1});
-    const followers=await Follow.findOne({userId},{followers:1});
-    res.status(200).json({data:followers});
+    const {followers: followersIds} = await Follow.findOne({ userId }, { followers: 1 });
+    const followersObjectArray= await UserProfile.find({_id:{$in:followersIds}},{username:1});
+    const followersUsernameArray=followersObjectArray.map(obj=>obj.username);
+    res.status(200).json({data:followersUsernameArray});
 })
 
 route.get("/:username/followings",async (req,res)=>{
     const {username}=req.params;
     const userId=await UserProfile.findOne({username},{userId:1});
-    const followings=await Follow.findOne({userId},{followings:1});
-    res.status(200).json({data:followings});
+    const {followings: followingsIds}=await Follow.findOne({userId},{followings:1});
+    const followingsObjectArray = await UserProfile.find({_id:{$in:followingsIds}},{username:1});
+    const followingsUsernameArray= followingsObjectArray.map(obj=>obj.username);
+    res.status(200).json({data:followingsUsernameArray});
+})
+
+route.get("/:username/findothers",async (req,res)=>{
+    const {username}=req.params;
+    const userId=await UserProfile.findOne({username},{userId:1});
+    const {followings: followingsIds}=await Follow.findOne({userId},{followings:1});
+    const followingsObjectArray = await UserProfile.find({_id:{$in:followingsIds}},{username:1});
+    const followingsUsernameArray= followingsObjectArray.map(obj=>obj.username);
+    followingsUsernameArray.push(username);
+    const othersObjectArray=await UserProfile.find({username:{$nin:followingsUsernameArray}},{username:1});
+    const othersUsernameArray=othersObjectArray.map(obj=>obj.username);
+    res.status(200).json({data:othersUsernameArray});
+
 })
 
 route.post("/:user/follow/:friend", async (req, res) => {
