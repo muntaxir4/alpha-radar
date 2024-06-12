@@ -1,13 +1,14 @@
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { userState, othersListState } from "../store/atoms";
 import Loading from "./Loading";
+import MiniProfileData from "./MiniProfileData";
 import MiniProfileCard from "./MiniProfileCard";
 
 function Followers(){
     const username = useRecoilValue(userState);
     const followersQuery =useRecoilValueLoadable(othersListState({username, others: "followers"}));
     if(followersQuery.state === "loading"){
-        return <Loading />
+        return <div className="m-2 flex justify-center"> <Loading /></div>
     }
     else if(followersQuery.state === "hasError"){
         console.log(followersQuery.contents)
@@ -16,7 +17,9 @@ function Followers(){
     const followersList = followersQuery.contents.data;
     return (<div>
         {followersList.map((diffUser, index) => 
-            <MiniProfileCard key={index} diffUser={diffUser} />
+            <MiniProfileCard key={index} >
+                <MiniProfileData diffUser={diffUser} />
+            </MiniProfileCard>
         )}
     </div>)
 }

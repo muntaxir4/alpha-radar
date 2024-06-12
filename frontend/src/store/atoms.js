@@ -8,7 +8,7 @@ const userState = atom({
 
 const refreshState =atomFamily({
     key: 'refreshState',
-    default: (username) => false
+    default: (username) => 0
 })
 
 const othersState =atom({
@@ -23,6 +23,7 @@ const profileState =atomFamily({
         get: (username) => async ({get}) =>{
             console.log("profile state", username)
             get(refreshState(username))
+            get(refreshState(userState))
             if(!username.length) return {data:{profilePic: '', username: '', posts: 0, followers: 0, followings: 0}};
             const data= await fetch(SERVER_URL+":"+SERVER_PORT+"/user/"+username)
             if(!data.ok) {console.log(data);throw new Error("Failed to fetch data")};       

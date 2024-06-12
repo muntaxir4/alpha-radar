@@ -9,13 +9,13 @@ function ProfileCard(){
     const setIsRefresh= useSetRecoilState(refreshState(username));
     const setOthers = useSetRecoilState(othersState);
 
-    if(userData.state === 'loading') return <Loading />;
+    if(userData.state === 'loading') return <div className="m-2 flex justify-center"> <Loading /></div>;
     else if(userData.state === 'hasError') return <div>User Not found</div>;
     const userProfile = userData.contents.data;
     return (
         <div className="border border-black rounded-xl m-3 p-5 h-full flex flex-col justify-between
         animated-background bg-gradient-to-r from-sky-300 via-blue-500 to-indigo-600">
-           <button type="button" className="absolute" onClick={()=> setIsRefresh(b=>!b)}>🔄</button>
+           <button type="button" className="absolute" onClick={()=> setIsRefresh(b=>b+1)}>🔄</button>
            <img src={userProfile.profilePic || "./src/assets/user.png"} alt="ProfilePic" width="100px" className="self-center"/>
             <h1 className="text-xl font-sans font-semibold">{userProfile.username || "Username"}</h1>
             <div className="flex justify-around  ">

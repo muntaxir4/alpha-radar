@@ -2,8 +2,8 @@
 
 Find and Connect with Alpha Humans
 
-## Using 
-Node.js and npm should be already Installed on your system.
+## Use
+Node.js and npm should already be installed on your system.
 
 1. Clone this repository:
 ```bash
@@ -33,14 +33,15 @@ npm install
 ```
 5. Start the App :
 ```bash
-cd frontend
-npm run dev
-```
-```bash
 cd backend
 npm install --global nodemon
 npm run dev
 ```
+```bash
+cd frontend
+npm run dev
+```
+
 
 ## Screenshots
-![PIC1](./screenshots/pic1.png)
+![PIC1](./screenshots/pic2.png)
